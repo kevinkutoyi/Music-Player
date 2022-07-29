@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Javascript Music Player</title>
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" type="image/x-icon" href="\images\favicon.ico.png">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="icon" type="image/x-icon" href="images\favicon.ico.png">
+    <!-- <link rel="stylesheet" href="css/all.min.css"> -->
+    <!-- <link rel="stylesheet" href="css/fontawesome.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/582c89d25c.js" crossorigin="anonymous"></script>
+
     
     
 </head>
@@ -28,29 +30,49 @@
                 <div class="total-duration">00:00</div>
             </div>
 
+            <!-- <form action="/action_page.php">
+                <input type="file" id="myFile" name="filename" accept="audio/*">
+                <input type="submit">
+            </form> -->
+            <!-- <div id="content">
+                Upload directory: <input id="file" type="file" accept="audio/*" directory allowdirs webkitdirectory/><br>
+                <br>Now playing: <label for="audio"></label><br>
+                <br><label for="select">Select a song to play:</label><br>
+                <select id="select">
+                  </select>
+                <canvas id="canvas"></canvas>
+                <audio id="audio" controls></audio>
+              </div> -->
+
             <div class="slider_container">
-                <i class="fa fa-volume-down"></i>
+                <i class="fa fa-volume-low"></i>
                 <input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
-                <i class="fa fa-volume-up"></i>
+                <!-- <i class="fa fa-volume-up"></i> -->
+                <i class="fa-solid fa-volume-high"></i>
 
             </div>
 
             <div class="buttons">
                 <div class="random-track" onclick="randomTrack()">
-                    <i class="fas fa-random fa-2x"></i> 
+                    <!-- <i class="fas fa-random fa-2x"></i>  -->
+                    <i class="fa-solid fa-shuffle"></i>
                 </div>
                 <div class="prev-track" onclick="prevTrack()">
-                    <i class="fas fa-step-backward fa-2x"></i>
+                    <i class="fa-solid fa-backward-fast"></i>
+                    <!-- <i class="fas fa-step-backward fa-2x"></i> -->
                     <!-- <i class="fa-solid fa-backward-fast"></i> -->
                 </div>
                 <div class="playPause-track" onclick="playPauseTrack()">
-                    <i class="fas fa-play-circle fa-5x"></i> 
+                    <!-- <i class="fas fa-play-circle fa-5x"></i>  -->
+                    <i class="fa-solid fa-play"></i>
                 </div>
                 <div class="next-track" onclick="nextTrack()">
-                    <i class="fas fa-step-forward fa-2x"></i> 
+                    <!-- <i class="fas fa-step-forward fa-2x"></i>  -->
+                    <i class="fa-solid fa-forward-fast"></i>
                 </div>
                 <div class="repeat-track" onclick="repeatTrack()">
-                    <i class="fa fa-repeat" style="font-size:36px;"></i>
+                    <!-- <i class="fa fa-repeat" style="font-size:36px;"></i> -->
+                    <i class="fa-solid fa-arrow-rotate-right"></i>
                 </div>
             </div>
             <div id="wave">

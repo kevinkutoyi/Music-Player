@@ -1,19 +1,20 @@
-let now_playing = document.querySelector('.now-playing');
-let track_art = document.querySelector('.track-art');
-let track_name = document.querySelector('.track-name');
-let track_artist = document.querySelector('.track-artist');
+let now_playing = document.querySelector(".now-playing");
+let track_art = document.querySelector(".track-art");
+let track_name = document.querySelector(".track-name");
+let track_artist = document.querySelector(".track-artist");
 
-let playPause_btn = document.querySelector('.playPause-track');
-let next_btn = document.querySelector('.next-track');
-let prev_btn = document.querySelector('.prev-track');
+let playPause_btn = document.querySelector(".playPause-track");
+let next_btn = document.querySelector(".next-track");
+let prev_btn = document.querySelector(".prev-track");
 
-let seek_slider = document.querySelector('.seek_slider');
-let volume_slider = document.querySelector('.volume_slider');
-let curr_time = document.querySelector('.current-time');
-let total_duration = document.querySelector('.total-duration');
-let wave = document.getElementById('wave');
-let randomIcon = document.querySelector('.fa-random');
-let curr_track = document.createElement('audio');
+let seek_slider = document.querySelector(".seek_slider");
+let volume_slider = document.querySelector(".volume_slider");
+let curr_time = document.querySelector(".current-time");
+let total_duration = document.querySelector(".total-duration");
+let wave = document.getElementById("wave");
+let randomIcon = document.querySelector(".fa-shuffle");
+let curr_track = document.createElement("audio");
+// let curr_play = document.getElementById("myFile");
 
 let track_index = 0;
 let isPlaying = false;
@@ -21,169 +22,194 @@ let isRandom = false;
 let updateTimer;
 
 const music_list = [
-    {
-        img: 'images/nyash.jpg',
-        name: 'Free',
-        artist: 'Nyashinski',
-        music: 'music/Free.mp3' 
-    },
-    {
-        img: 'images/bob.jpg',
-        name: 'Is This Love',
-        artist: 'Bob Marley',
-        music: 'music/Love.mp3' 
-    },
-    {
-        img: 'images/nipsey.jpg',
-        name: 'Bigger Than Life',
-        artist: 'Nipsey Hussle',
-        music: 'music/Life.mp3' 
-    }, 
-    {
-        img: 'images/alkaline.jpg',
-        name: 'Elite Only',
-        artist: 'Alkaline',
-        music: 'music/Elite_only.mp3' 
-    },   
-    {
-        img: 'images/mj.jpg',
-        name: 'Speechless',
-        artist: 'Michael Jackson',
-        music: 'music/Speechless.mp3' 
-    }   
-     
+  {
+    img: "images/nyash.jpg",
+    name: "Free",
+    artist: "Nyashinski",
+    music: "music/Free.mp3",
+  },
+  {
+    img: "images/bob.jpg",
+    name: "Is This Love",
+    artist: "Bob Marley",
+    music: "music/Love.mp3",
+  },
+  {
+    img: "images/nipsey.jpg",
+    name: "Bigger Than Life",
+    artist: "Nipsey Hussle",
+    music: "music/Life.mp3",
+  },
+  {
+    img: "images/alkaline.jpg",
+    name: "Elite Only",
+    artist: "Alkaline",
+    music: "music/Elite_only.mp3",
+  },
+  {
+    img: "images/mj.jpg",
+    name: "Speechless",
+    artist: "Michael Jackson",
+    music: "music/Speechless.mp3",
+  },
 ];
 
 loadTrack(track_index);
 
-function loadTrack(track_index){
-    clearInterval(updateTimer);
-    reset();
+function loadTrack(track_index) {
+  clearInterval(updateTimer);
+  reset();
 
-    curr_track.src = music_list[track_index].music;
-    curr_track.load();
+  curr_track.src = music_list[track_index].music;
+  //   curr_play.load();
+  curr_track.load();
 
-    track_art.style.backgroundImage = "url("+ music_list[track_index].img + ")";
-    track_name.textContent = music_list[track_index].name;
-    track_artist.textContent = music_list[track_index].artist;
-    now_playing.textContent = 'Playing music ' + (track_index + 1) + ' of ' + music_list.length;
+  track_art.style.backgroundImage = "url(" + music_list[track_index].img + ")";
+  track_name.textContent = music_list[track_index].name;
+  track_artist.textContent = music_list[track_index].artist;
+  now_playing.textContent =
+    "Playing music " + (track_index + 1) + " of " + music_list.length;
 
-    updateTimer = setInterval(setUpdate,1000);
+  updateTimer = setInterval(setUpdate, 1000);
 
-    curr_track.addEventListener('ended', nextTrack);
-    random_bg_color();
+  curr_track.addEventListener("ended", nextTrack);
+  random_bg_color();
 }
 
-function random_bg_color(){
-    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'];
-    let a;
+function random_bg_color() {
+  let hex = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+  ];
+  let a;
 
-    function populate(a){
-        for(let i=0; i<6; i++){
-            let x = Math.round(Math.random() * 14);
-            let y = hex[x];
-            a += y;
-        }
-        return a;
+  function populate(a) {
+    for (let i = 0; i < 6; i++) {
+      let x = Math.round(Math.random() * 14);
+      let y = hex[x];
+      a += y;
     }
-    let color1 = populate('#');
-    let color2 = populate('#');
-    var angle = 'to Left';
+    return a;
+  }
+  let color1 = populate("#");
+  let color2 = populate("#");
+  var angle = "to Left";
 
-    let gradient = 'linear-gradient(' + angle + ',' + color1 + ',' + color2 + ')';
-    document.body.style.background = gradient;
+  let gradient = "linear-gradient(" + angle + "," + color1 + "," + color2 + ")";
+  document.body.style.background = gradient;
 }
-function reset(){
-    curr_time.textContent = "00:00";
-    total_duration.textContent = "00:00";
-    seek_slider.value = 0;
+function reset() {
+  curr_time.textContent = "00:00";
+  total_duration.textContent = "00:00";
+  seek_slider.value = 0;
 }
- function randomTrack(){
-     isRandom ? pauseRandom() : playRandom();
- }
-
- function playRandom(){
-     isRandom = true;
-     randomIcon.classList.add('randomActive');
- }
- function pauseRandom(){
-     isRandom = false;
-     randomIcon.classList.remove('randomActive');
- }
- function repeatTrack(){
-     let current_index = track_index;
-     loadTrack(current_index);
-     playTrack();
- }
-
-function playPauseTrack(){
-    isPlaying ? pauseTrack() : playTrack();
+function randomTrack() {
+  isRandom ? pauseRandom() : playRandom();
 }
 
- function playTrack(){
-     curr_track.play();
-     isPlaying = true;
-     track_art.classList.add('rotate');
-     wave.classList.add('loader');
-     playPause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+function playRandom() {
+  isRandom = true;
+  randomIcon.classList.add("randomActive");
+}
+function pauseRandom() {
+  isRandom = false;
+  randomIcon.classList.remove("randomActive");
+}
+function repeatTrack() {
+  let current_index = track_index;
+  loadTrack(current_index);
+  playTrack();
+}
 
- }
- function pauseTrack(){
-     curr_track.pause();
-     isPlaying = false;
-     track_art.classList.remove('rotate');
-     wave.classList.remove('loader');
-     playPause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
- }
+function playPauseTrack() {
+  isPlaying ? pauseTrack() : playTrack();
+}
 
- function nextTrack(){
-     if(track_index < music_list.length - 1 && isRandom === false){
-         track_index += 1;
-     } else if(track_index < music_list.length - 1 && isRandom === true){
-         let random_index = Number.parseInt(Math.random() * music_list.length);
-         track_index = random_index;
-     }else {
-         track_index = 0;
-     }
-     loadTrack(track_index);
-     playTrack();
- }
- function prevTrack(){
-     if(track_index > 0){
-         track_index -= 1;
-     }else{
-         track_index = music_list.length -1;
-     }
-     loadTrack(track_index);
-     playTrack();
- }
- function seekTo(){
-     let seekto = curr_track.duration * (seek_slider.value / 100);
-     curr_track.currentTime = seekto;
- }
- function setVolume(){
-     curr_track.volume = volume_slider.value /100;
- }
- function setUpdate(){
-     let seekPosition = 0;
-     if(!isNaN(curr_track.duration)){
-         seekPosition = curr_track.currentTime * (100 / curr_track.duration);
-         seek_slider.value = seekPosition;
+function playTrack() {
+  curr_track.play();
+  isPlaying = true;
+  track_art.classList.add("rotate");
+  wave.classList.add("loader");
+  playPause_btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+}
+function pauseTrack() {
+  curr_track.pause();
+  isPlaying = false;
+  track_art.classList.remove("rotate");
+  wave.classList.remove("loader");
+  playPause_btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+}
 
-         let currentMinutes = Math.floor(curr_track.currentTime / 60);
-         let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
-         let durationMinutes = Math.floor(curr_track.duration /60);
-         let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+function nextTrack() {
+  if (track_index < music_list.length - 1 && isRandom === false) {
+    track_index += 1;
+  } else if (track_index < music_list.length - 1 && isRandom === true) {
+    let random_index = Number.parseInt(Math.random() * music_list.length);
+    track_index = random_index;
+  } else {
+    track_index = 0;
+  }
+  loadTrack(track_index);
+  playTrack();
+}
+function prevTrack() {
+  if (track_index > 0) {
+    track_index -= 1;
+  } else {
+    track_index = music_list.length - 1;
+  }
+  loadTrack(track_index);
+  playTrack();
+}
+function seekTo() {
+  let seekto = curr_track.duration * (seek_slider.value / 100);
+  curr_track.currentTime = seekto;
+}
+function setVolume() {
+  curr_track.volume = volume_slider.value / 100;
+}
+function setUpdate() {
+  let seekPosition = 0;
+  if (!isNaN(curr_track.duration)) {
+    seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+    seek_slider.value = seekPosition;
 
-         if(currentSeconds < 10){ currentSeconds = '0' + currentSeconds ;}
-         if(durationSeconds < 10){ durationSeconds = '0' + durationSeconds;}
-         if(currentMinutes < 10){ currentMinutes = '0' +  currentMinutes;}
-         if(durationMinutes < 10){durationMinutes = '0' + durationMinutes;}
+    let currentMinutes = Math.floor(curr_track.currentTime / 60);
+    let currentSeconds = Math.floor(
+      curr_track.currentTime - currentMinutes * 60
+    );
+    let durationMinutes = Math.floor(curr_track.duration / 60);
+    let durationSeconds = Math.floor(
+      curr_track.duration - durationMinutes * 60
+    );
 
-        curr_time.textContent = currentMinutes + ':' + currentSeconds;
-        total_duration.textContent = durationMinutes  + ':' + durationMinutes;
+    if (currentSeconds < 10) {
+      currentSeconds = "0" + currentSeconds;
+    }
+    if (durationSeconds < 10) {
+      durationSeconds = "0" + durationSeconds;
+    }
+    if (currentMinutes < 10) {
+      currentMinutes = "0" + currentMinutes;
+    }
+    if (durationMinutes < 10) {
+      durationMinutes = "0" + durationMinutes;
+    }
 
-        }
-     }
- 
-
+    curr_time.textContent = currentMinutes + ":" + currentSeconds;
+    total_duration.textContent = durationMinutes + ":" + durationMinutes;
+  }
+}

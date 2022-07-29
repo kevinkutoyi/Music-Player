@@ -119,18 +119,18 @@ body {
 .total-duration {
   padding: 10px;
 }
-i.fa-volume-down,
-i.fa-volume-up {
+i.fa-volume-low,
+i.fa-volume-high {
   padding: 10px;
 }
 i,
-i.fa-play-circle,
-i.fa-pause-circle,
-i.fa-step-forward,
-i.fa-step-backward {
+i.fa-play,
+i.fa-pause,
+i.fa-forward-fast,
+i.fa-backward-fast {
   cursor: pointer;
 }
-.randomActive {
+.random-active {
   color: #000;
 }
 .rotate {
@@ -152,13 +152,13 @@ i.fa-step-backward {
 }
 .loader .stroke {
   position: relative;
-  bottom: 460px;
+  bottom: 420px;
   z-index: -1;
   background: #f1f1f1;
   height: 90%;
   width: 3px;
   border-radius: 50px;
-  margin: 0px 10px;
+  margin: 0px 8px;
   animation: animate 1.4s linear infinite;
 }
 @keyframes animate {
